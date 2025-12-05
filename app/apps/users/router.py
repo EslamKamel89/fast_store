@@ -1,8 +1,10 @@
-from apps.users.repository import UserRepository
-from apps.users.schemas import UserCreate, UserRead
-from db.session import get_session
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.apps.users.repository import UserRepository
+from app.apps.users.schemas import UserCreate, UserRead
+from app.core.security import Security
+from app.db.session import get_session
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -17,6 +19,8 @@ async def register(payload: UserCreate, session: AsyncSession = Depends(get_sess
             detail="email already associated with a user",
         )
     user = await repo.create(
-        name=payload.name, email=payload.email, password_hash=payload.password
+        name=payload.name,
+        email=payload.email,
+        password_hash=Security.hash_password(payload.password),
     )
     return user

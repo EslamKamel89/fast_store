@@ -22,8 +22,8 @@
     "python.formatting.blackPath": "${workspaceFolder}/venv/Scripts/black",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-        "source.organizeImports": true,
-        "source.fixAll": true
+        "source.organizeImports": "explicit",
+        "source.fixAll": "explicit"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
