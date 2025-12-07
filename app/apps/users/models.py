@@ -5,10 +5,13 @@ from pydantic import BaseModel
 from sqlmodel import Column, DateTime, Field, Relationship, SQLModel, String, text
 
 if TYPE_CHECKING:
-    from apps.auth.models import RefreshToken
+    from app.apps.auth.models import RefreshToken
+    from app.apps.orders.models import Order
+    from app.apps.profiles.models import Profile
 
 
 class User(SQLModel, table=True):
+    __tablename__ = "users"  # type: ignore
     id: Optional[int] = Field(default=None, primary_key=True)
     email: str = Field(
         sa_column=Column(String(200), nullable=False, index=True, unique=True)
@@ -34,3 +37,5 @@ class User(SQLModel, table=True):
             onupdate=text("CURRENT_TIMESTAMP"),
         ),
     )
+    profile: "Profile" = Relationship(back_populates="user")
+    orders: list["Order"] = Relationship(back_populates="user")

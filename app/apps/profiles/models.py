@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class Profile(SQLModel, table=True):
     __tablename__ = "profiles"  # type: ignore
-    __table_args__ = UniqueConstraint("user_id", name="uq_profiles_user_id")
+    __table_args__ = (UniqueConstraint("user_id", name="uq_profiles_user_id"),)
     id: Optional[int] = Field(primary_key=True, nullable=True)
     user_id: Optional[int] = Field(
         sa_column=Column(

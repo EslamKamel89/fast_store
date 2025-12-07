@@ -18,11 +18,12 @@ if TYPE_CHECKING:
 
 
 class RefreshToken(SQLModel, table=True):
+    __tablename__ = "refresh_tokens"  # type: ignore
     id: Optional[int] = Field(primary_key=True, default=None)
     token: str = Field(
         sa_column=Column(String(255), nullable=False, unique=True, index=True)
     )
-    user_id: int = Field(foreign_key="user.id", nullable=False, index=True)
+    user_id: int = Field(foreign_key="users.id", nullable=False, index=True)
     user: Optional["User"] = Relationship(back_populates="refresh_tokens")
     revoked: bool = Field(
         default=False, sa_column=Column(Boolean, nullable=False, default=False)

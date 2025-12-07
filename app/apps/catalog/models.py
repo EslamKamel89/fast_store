@@ -60,7 +60,7 @@ class Category(SQLModel, table=True):
         ),
     )
     products: list["Product"] = Relationship(
-        back_populates="categories", link_model="ProductCategory"
+        back_populates="categories", link_model=ProductCategory
     )
 
 
@@ -89,7 +89,7 @@ class Product(SQLModel, table=True):
         ),
     )
     categories: list["Category"] = Relationship(
-        back_populates="products", link_model="ProductCategory"
+        back_populates="products", link_model=ProductCategory
     )
     order_items: list["OrderItem"] = Relationship(
         back_populates="product",

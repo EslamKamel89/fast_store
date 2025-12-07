@@ -11,7 +11,11 @@ from app.core.config import settings
 
 try:
     import app.apps.auth.models
+    import app.apps.catalog.models
+    import app.apps.orders.models
+    import app.apps.profiles.models
     import app.apps.users.models
+
 except Exception as e:
     raise e
 # this is the Alembic Config object, which provides
