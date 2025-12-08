@@ -42,3 +42,17 @@ class BaseRepository(Generic[ModelT]):
         await self.session.delete(instance)
         if commit:
             await self.session.commit()
+
+
+class UnitOfWork:
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def commit(self) -> None:
+        await self.session.commit()
+
+    async def rollback(self) -> None:
+        await self.session.rollback()
+
+    async def flush(self) -> None:
+        await self.session.flush()
