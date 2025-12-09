@@ -32,10 +32,10 @@ class BaseRepository(Generic[ModelT]):
     ) -> ModelT:
         self.session.add(instance)
         await self.session.flush()
-        if refresh:
-            await self.session.refresh(instance)
         if commit:
             await self.session.commit()
+        if refresh:
+            await self.session.refresh(instance)
         return instance
 
     async def delete(self, instance: ModelT, *, commit: bool = False) -> None:

@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from app.apps.auth.router import router as auth_router
 from app.apps.users.router import router as user_router
 from app.core.config import settings
+from app.db.models import *
 from app.db.session import engine
 
 

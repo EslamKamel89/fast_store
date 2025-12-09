@@ -4,8 +4,8 @@ from typing import TYPE_CHECKING, Optional
 from sqlalchemy import ForeignKey, Nullable, UniqueConstraint
 from sqlmodel import Column, DateTime, Field, Relationship, SQLModel, String, text
 
-if TYPE_CHECKING:
-    from app.apps.users.models import User
+# if TYPE_CHECKING:
+from app.apps.users.models import User
 
 
 class Profile(SQLModel, table=True):
