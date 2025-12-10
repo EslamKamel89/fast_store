@@ -17,6 +17,8 @@ from sqlmodel import (
 if TYPE_CHECKING:
     from app.apps.orders.models import OrderItem
 
+SLUG_PATTERN = r"^[a-z0-9]+(?:-[a-z0-9]+)*$"
+
 
 class ProductCategory(SQLModel, table=True):
     __tablename__ = "product_categories"  # type: ignore
@@ -69,6 +71,9 @@ class Product(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(
         sa_column=Column(String(100), unique=True, index=True, nullable=False)
+    )
+    slug: str = Field(
+        sa_column=Column(String(200), unique=True, index=True, nullable=False),
     )
     price: Decimal = Field(sa_column=Column(Numeric(10, 2), nullable=False))
     created_at: Optional[datetime] = Field(
